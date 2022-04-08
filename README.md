@@ -11,12 +11,12 @@ class Square:
         self.inactive_colour = inactive_col    
     def rect(self):
         return (self.coords[0]+self.size, self.coords[1]+self.size)
-    def coming(self, coord):
+    def incoming(self, coord):
         (x, y) = coord
         return (x >= 0 and x <= self.length-self.size) and (y >= 0 and y <= self.length-self.size)
     def neighbours(self):
         (x, y) = self.coords
-        return list(filter(self.coming, [
+        return list(filter(self.incoming, [
                     (x-self.size, y+self.size), (x, y+self.size), (x+self.size, y+self.size),
                     (x-self.size, y),                                      (x+self.size, y),
                     (x-self.size, y-self.size), (x, y-self.size), (x+self.size, y-self.size),
@@ -70,7 +70,7 @@ class Grid:
             else:
                 if alive_neighbours == 3:
                     square.state = True
-class App:
+class Supplement:
     def __init__(self, length, size, tolerance=0.8):
         self.length = length  
         self.size = size      
@@ -105,7 +105,7 @@ canvas_items={}):
                 for coords, item in canvas_items.items():
                     self.canvas.itemconfig(item, fill=square_items[coords].get_colour())
             else:
-                raise ValueError("There is no any given canvas_items for reiterating over canvas squares.")
+                raise ValueError("There is no any given canvas squares.")
 if __name__ == "__main__":
-    app = App(1000, 25, tolerance=0.7)
+    app = Supplement(1000, 25, tolerance=0.7)
 
